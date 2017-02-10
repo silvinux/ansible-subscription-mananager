@@ -6,10 +6,11 @@ galaxy_info:
   license: GPLv3
   min_ansible_version: 1.9
   platforms:
-  - name: RHEL
-    versions: 
-    - RHEL 6
-    - RHEL 7
+  - name: EL
+    versions:
+    - 5
+    - 6
+    - 7
   galaxy_tags:
     - subscription-mananager
     - katello
