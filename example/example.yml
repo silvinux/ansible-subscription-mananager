@@ -10,7 +10,7 @@
         register_host: true
         manage_repo: true
         satellite_organization : example
-        capsule: satelite6.example.com
+        capsule: satellite6.example.com
         state: disable
         repo_list:
           - example_org_EPEL_Repository_EPEL{{ansible_distribution_major_version}}
