@@ -1,0 +1,36 @@
+---
+    - name: Check if katello-ca-consumer is installed
+      shell: rpm -qa | grep katello-ca-consumer
+      register: check_katello_ca
+      failed_when: "'Consider using yum module rather than running rpm' not in check_katello_ca.warnings"
+      tags:
+        - check
+
+    - name: Install katello-ca-consumer
+      #yum: name=http://"{{ capsule }}"/pub/katello-ca-consumer-latest.noarch.rpm state=present
+      shell: rpm -ivh http://"{{ capsule }}"/pub/katello-ca-consumer-latest.noarch.rpm 
+      when: check_katello_ca.rc == 1
+      tags:
+        install
+
+    - name: Register to Satellite6 
+      shell: subscription-manager register --org={{ satellite_organization }} --activationkey="ak-{{ ansible_distribution_version }}-{{ LifeCicle }}" --baseurl="https://{{ capsule }}/pulp/repos" --insecure
+      register: sat_reg
+      failed_when: "'Unable to find available subscriptions for all your installed products' not in sat_reg.stdout"
+      ignore_errors: true
+      tags:
+        - register_sat
+
+    - name: Update Content Host Release Version
+      shell: hammer content-host update --name {{ansible_fqdn}} --release-ver {{ansible_distribution_version}} --organization-id "3"
+      delegate_to: satelite6
+      tags:
+        - host
+
+    - name: Refresh subscription
+      shell: subscription-manager refresh
+
+    - name: Autoattach
+      shell: subscription-manager attach --auto
+      tags:
+        - auto

@@ -1,0 +1,9 @@
+---
+- include: unregister.yml
+  when: unregister == true
+
+- include: register.yml
+  when: register_host == true
+
+- include: "manage_repo.yml"
+  when: manage_repo == true

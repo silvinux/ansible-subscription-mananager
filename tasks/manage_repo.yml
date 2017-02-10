@@ -1,0 +1,4 @@
+---
+- name: Repo "{{ state }}" 
+  shell: subscription-manager repos --"{{ state }}" "{{ item }}"
+  with_items: repo_list

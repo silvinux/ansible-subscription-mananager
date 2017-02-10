@@ -1,0 +1,7 @@
+---
+# Unregister
+    - name: Unregister subscription - Removes subscription and identity data
+      shell: subscription-manager remove --all; subscription-manager unregister;subscription-manager clean
+      ignore_errors: yes
+      tags:
+        - unregister_sat

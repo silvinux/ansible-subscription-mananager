@@ -1,0 +1,12 @@
+---
+unregister: false
+register_host: false
+manage_repo: false
+satellite_organization : example_org
+capsule: satellite6.example.com
+state: disable
+LifeCicle: dev
+
+#repo_list:
+#  - example_org_EPEL_Repository_EPEL{{ansible_distribution_major_version}}
+#  - rhel-server-rhscl-6-rpms

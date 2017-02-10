@@ -1,0 +1,16 @@
+---
+  - hosts: subscription
+    gather_facts: yes
+    remote_user: user
+    become: yes
+    become_method: sudo
+    roles:
+      - role: subscription-mananager
+        unregister: true
+        register_host: true
+        manage_repo: true
+        satellite_organization : example
+        capsule: satelite6.example.com
+        state: disable
+        repo_list:
+          - example_org_EPEL_Repository_EPEL{{ansible_distribution_major_version}}
